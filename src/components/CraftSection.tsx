@@ -8,10 +8,9 @@ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 gsap.registerPlugin(ScrollTrigger);
 
 export const CraftSection: React.FC = () => {
-  const containerRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const typographyRef = useRef<HTMLDivElement>(null);
-  const quoteRef = useRef<HTMLParagraphElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
   const { openBooking } = useBooking();
 
@@ -19,15 +18,15 @@ export const CraftSection: React.FC = () => {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Smooth Camera Zoom on Video
       gsap.fromTo(
-        videoRef.current,
-        { scale: 1.0 },
+        imageRef.current,
+        { yPercent: 0, scale: 1 },
         {
-          scale: 1.08,
+          yPercent: -8,
+          scale: 1.04,
           ease: 'none',
           scrollTrigger: {
-            trigger: containerRef.current,
+            trigger: sectionRef.current,
             start: 'top bottom',
             end: 'bottom top',
             scrub: true,
@@ -35,96 +34,112 @@ export const CraftSection: React.FC = () => {
         }
       );
 
-      // Independent Subtle Parallax on Foreground Typography
-      gsap.to(typographyRef.current, {
-        yPercent: -18,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      });
-
       gsap.fromTo(
-        quoteRef.current,
-        { opacity: 0, y: 30 },
+        textRef.current,
+        { opacity: 0, y: 28 },
         {
           opacity: 1,
           y: 0,
           duration: 1,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: quoteRef.current,
+            trigger: textRef.current,
             start: 'top 80%',
-            end: 'bottom 60%',
             toggleActions: 'play none none reverse',
           },
         }
       );
-    }, containerRef);
+    }, sectionRef);
 
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
+  const services = [
+    'Haircut',
+    'Beard sculpting',
+    'Facial care',
+    'Nose & brow',
+    'Styling',
+    'Premium grooming',
+  ];
+
   return (
     <section
       id="craft"
-      ref={containerRef}
-      className="relative w-full min-h-[85vh] lg:min-h-screen bg-[#0B0A09] text-[#F2EBDD] overflow-hidden flex items-center justify-center py-28 md:py-36"
+      ref={sectionRef}
+      className="relative w-full py-28 md:py-40 bg-[#0B0A09] text-[#F2EBDD] overflow-hidden"
     >
-      {/* Background Video Layer */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="w-full h-full object-cover grayscale contrast-125 brightness-60 will-change-transform"
-        >
-          <source src="/videos/craft.mp4" type="video/mp4" />
-        </video>
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div ref={textRef} className="lg:col-span-5 space-y-8 will-change-transform">
+            <div>
+              <span className="text-xs font-mono tracking-[0.3em] uppercase text-[#C8A46A] mb-3 block">
+                SIGNATURE EXPERIENCE
+              </span>
+              <h2 className="font-display text-5xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight leading-[0.9] text-[#F2EBDD]">
+                OUR <span className="block font-serif italic font-normal text-[#C8A46A]">RITUAL</span>
+              </h2>
+            </div>
 
-        {/* Middle Atmospheric Dark Vignettes */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0A09] via-transparent to-[#0B0A09]" />
-        <div className="absolute inset-0 bg-[#0B0A09]/40 mix-blend-multiply" />
-      </div>
+            <p className="font-serif italic text-xl sm:text-2xl text-[#F2EBDD]/90 leading-snug">
+              More than a haircut — a complete grooming ritual shaped around your features, routine, and confidence.
+            </p>
 
-      {/* Foreground Typography Layer */}
-      <div
-        ref={typographyRef}
-        className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col justify-center items-center text-center will-change-transform"
-      >
-        <span className="text-xs font-mono tracking-[0.35em] uppercase text-[#C8A46A] mb-4 block">
-          // 02 &bull; DISCIPLINE &amp; MASTERY
-        </span>
+            <div className="space-y-4 text-sm leading-relaxed text-[#8C847A]">
+              <p>
+                From precision cuts and beard detailing to facial care, brow work, and finish styling, each service is designed to refine the way you look and feel.
+              </p>
+              <p>
+                We keep the experience elevated, personal, and professional — every appointment is precise, reassuring, and tailored to your signature look.
+              </p>
+            </div>
 
-        <h2 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[140px] font-black uppercase tracking-tight text-[#F2EBDD] leading-[0.88] mb-8">
-          THE ART <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F2EBDD] via-[#DFC18A] to-[#C8A46A]">
-            OF THE CUT
-          </span>
-        </h2>
+            <div className="grid grid-cols-2 gap-3">
+              {services.map((item) => (
+                <div
+                  key={item}
+                  className="border border-[#F2EBDD]/10 bg-[#14110F] px-3 py-3 text-[10px] font-mono uppercase tracking-[0.22em] text-[#F2EBDD]/80"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
 
-        <p
-          ref={quoteRef}
-          className="font-serif italic text-2xl sm:text-3xl md:text-4xl text-[#F2EBDD]/90 max-w-2xl mx-auto leading-tight mb-10"
-        >
-          “Every movement has purpose. Every shear stroke honors the silhouette.”
-        </p>
+            <button
+              onClick={() => openBooking()}
+              data-cursor="BOOK"
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#C8A46A] hover:bg-[#DFC18A] text-[#0B0A09] font-mono font-bold text-[10px] tracking-[0.2em] uppercase transition-all duration-300"
+            >
+              <span>BOOK A SESSION</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </button>
+          </div>
 
-        <div>
-          <button
-            onClick={() => openBooking()}
-            data-cursor="BOOK"
-            className="px-8 py-4 bg-[#C8A46A] hover:bg-[#DFC18A] text-[#0B0A09] font-mono font-bold text-xs tracking-[0.2em] uppercase transition-all duration-300 flex items-center gap-2"
-          >
-            <span>EXPERIENCE THE CRAFT</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </button>
+          <div className="lg:col-span-7 relative min-h-[480px] sm:min-h-[620px] flex items-center justify-end">
+            <div
+              ref={imageRef}
+              className="relative w-[90%] aspect-[4/5] overflow-hidden border border-[#F2EBDD]/15 bg-[#14110F] shadow-2xl will-change-transform"
+              data-cursor="VIEW"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=1400&auto=format&fit=crop"
+                alt="Barber and client during premium grooming service"
+                className="w-full h-full object-cover grayscale contrast-120 brightness-90"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0A09] via-transparent to-[#0B0A09]/30" />
+              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between border border-[#F2EBDD]/10 bg-[#0B0A09]/60 backdrop-blur-sm px-4 py-3">
+                <div>
+                  <div className="text-[9px] font-mono tracking-[0.3em] uppercase text-[#C8A46A]">
+                    MAINTENANCE
+                  </div>
+                  <div className="mt-1 text-lg font-display uppercase text-[#F2EBDD]">TAILORED CARE</div>
+                </div>
+                <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#8C847A]">
+                  45-75 MIN
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -14,6 +14,14 @@ export const Services: React.FC = () => {
   const cardsRef = useRef<(HTMLElement | null)[]>([]);
   const { openBooking } = useBooking();
   const prefersReducedMotion = usePrefersReducedMotion();
+  const quickAddons = [
+    'Nose Wax',
+    'Brow Detail',
+    'Beard Trim',
+    'Hot Towel',
+    'Scalp Massage',
+    'Styling Finish',
+  ];
 
   useEffect(() => {
     if (prefersReducedMotion || !sectionRef.current) return;
@@ -62,19 +70,19 @@ export const Services: React.FC = () => {
     <section
       id="services"
       ref={sectionRef}
-      className="relative w-full bg-[#0B0A09] text-[#F2EBDD] overflow-hidden py-28 md:py-36"
+      className="relative w-full bg-[linear-gradient(135deg,#F7F0E6_0%,#F5EACC_45%,#F2EBDD_100%)] text-[#0B0A09] overflow-hidden py-28 md:py-36"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(200,164,106,0.09),transparent_50%)]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
         <div ref={headingRef} className="max-w-3xl mb-14 md:mb-20">
-          <span className="text-[10px] md:text-xs font-mono tracking-[0.35em] uppercase text-[#C8A46A] block mb-4">
+          <span className="text-[10px] md:text-xs font-mono tracking-[0.35em] uppercase text-[#8A6732] block mb-4">
             // 01 &bull; THE MENU
           </span>
-          <h2 className="font-display text-5xl sm:text-6xl md:text-7xl xl:text-[88px] font-black uppercase tracking-[-0.04em] leading-[0.9] text-[#F2EBDD]">
-            Precision without <span className="font-serif italic font-normal text-[#C8A46A] not-italic">excess</span>
+          <h2 className="font-display text-5xl sm:text-6xl md:text-7xl xl:text-[88px] font-black uppercase tracking-[-0.04em] leading-[0.9] text-[#0B0A09]">
+            Precision without <span className="font-serif italic font-normal text-[#8A6732] not-italic">excess</span>
           </h2>
-          <p className="mt-5 max-w-xl text-sm md:text-base text-[#8C847A] leading-relaxed">
+          <p className="mt-5 max-w-xl text-sm md:text-base text-[#3F3A36] leading-relaxed">
             Tailored grooming built around silhouette, texture, and your daily rhythm from the first consultation to the final detail.
           </p>
         </div>
@@ -147,6 +155,33 @@ export const Services: React.FC = () => {
               </div>
             </article>
           ))}
+        </div>
+
+        <div className="mt-16 w-full rounded-none border border-[#F2EBDD]/10 bg-[#14110F] px-6 py-7 md:px-8 md:py-8">
+          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <div>
+              <span className="text-[10px] md:text-xs font-mono tracking-[0.3em] uppercase text-[#C8A46A]">
+                QUICK ADD-ONS
+              </span>
+              <h3 className="mt-3 font-display text-3xl sm:text-4xl font-black uppercase tracking-[-0.04em] text-[#F2EBDD]">
+                Finish stronger
+              </h3>
+            </div>
+            <p className="max-w-xl text-sm text-[#8C847A] leading-relaxed">
+              Personalize the appointment with a refined detail layer that sharpens your cut, beard, or facial balance.
+            </p>
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            {quickAddons.map((addon) => (
+              <span
+                key={addon}
+                className="border border-[#F2EBDD]/10 bg-[#0B0A09] px-4 py-2.5 text-[10px] md:text-xs font-mono tracking-[0.2em] uppercase text-[#F2EBDD]/80"
+              >
+                {addon}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>

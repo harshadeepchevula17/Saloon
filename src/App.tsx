@@ -5,6 +5,7 @@ import { Loader } from './components/Loader';
 import { CustomCursor } from './components/CustomCursor';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { MorphTransition } from './components/MorphTransition';
 import { CinematicTransition } from './components/CinematicTransition';
 import { Services } from './components/Services';
 import { CraftSection } from './components/CraftSection';
@@ -38,12 +39,13 @@ const SalonContent: React.FC = () => {
       {/* Main Experience Flow */}
       <main className="relative">
         <Hero />
-        <CinematicTransition />
-        <Services />
-        <CraftSection />
+        <MorphTransition variant="dark-cream" />
         <About />
-        <Barbers />
-        <WorkGallery />
+        <MorphTransition variant="cream-dark" />
+        <CraftSection />
+        <MorphTransition variant="dark-cream" />
+        <Services />
+        <MorphTransition variant="cream-dark" />
         <Testimonials />
         <Visit />
         <BookingCTA />
