@@ -26,7 +26,7 @@ export const Hero: React.FC = () => {
 
     const ctx = gsap.context(() => {
       // Cinematic Master Timeline
-      const tl = gsap.timeline({ delay: 0.15 });
+      const tl = gsap.timeline({ delay: 4 });
 
       tl.fromTo(
         videoRef.current,
@@ -34,34 +34,16 @@ export const Hero: React.FC = () => {
         { opacity: 1, scale: 1, duration: 1.6, ease: 'power2.out' }
       )
       .fromTo(
-        brandPillRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
-        '-=1.0'
+        [brandPillRef.current, descRef.current, ctaRef.current, scrollIndicatorRef.current],
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
+        4
       )
       .fromTo(
         [titleLine1Ref.current, titleLine2Ref.current],
-        { yPercent: 100 },
-        { yPercent: 0, duration: 1.1, stagger: 0.12, ease: 'power4.out' },
-        '-=0.6'
-      )
-      .fromTo(
-        descRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
-        '-=0.6'
-      )
-      .fromTo(
-        ctaRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
-        '-=0.5'
-      )
-      .fromTo(
-        scrollIndicatorRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.6, ease: 'power2.out' },
-        '-=0.3'
+        { opacity: 0, yPercent: 100 },
+        { opacity: 1, yPercent: 0, duration: 1.1, ease: 'power4.out' },
+        4
       );
 
       // Scroll Parallax & Scale
@@ -115,7 +97,7 @@ export const Hero: React.FC = () => {
           preload="metadata"
           className="w-full h-full object-cover object-center will-change-transform opacity-0"
         >
-          <source src="/videos/hero.mp4" type="video/mp4" />
+          <source src="/videos/hero%20(2).mp4" type="video/mp4" />
         </video>
 
         {/* Ambient Dark Overlays */}

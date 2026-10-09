@@ -78,7 +78,7 @@ export const BookingCTA: React.FC = () => {
           preload="metadata"
           className="w-full h-full object-cover grayscale contrast-125 brightness-45 will-change-transform"
         >
-          <source src="/videos/hero.mp4" type="video/mp4" />
+          <source src="/videos/hero%20(2).mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B0A09] via-[#0B0A09]/60 to-[#0B0A09]" />
         <div className="absolute inset-0 bg-grain opacity-50 pointer-events-none" />
